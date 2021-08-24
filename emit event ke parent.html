@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="vueApp">
+      <h3>Belajar VueJs</h3>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <blog-post title="My journey with Vue" desc="This is my first Vue web app" @trigger-read="read()"></blog-post>
+      <blog-post title="My journey with React" desc="This is my first Vue web app" @trigger-read="read()"></blog-post>
+      <p>Total selesai: {{ total }}</p>
+    </div>
+
+    <script type="text/x-template" id="blog-template">
+      <h3>
+          {{ title }} :
+      </h3>
+      <p>{{ desc }}</p>
+      <button @click="$emit('triggerRead')">Selesai</button>
+    </script>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            total: 0,
+          };
+        },
+        methods: {
+          read() {
+            this.total++;
+          },
+        },
+      });
+
+      app.component("blog-post", {
+        props: ["title", "desc"],
+        template: "#blog-template",
+      });
+
+      app.mount("#vueApp");
+    </script>
+  </body>
+</html>
